@@ -19,5 +19,3 @@
 - 캐시 교체 알고리즘은 ```LRU```(Least Recently Used)를 사용한다.
 - ```cache hit```일 경우 실행시간은 1이다.
 - ```cache miss```일 경우 실행시간은 5이다.
-
-### 문제 풀이
