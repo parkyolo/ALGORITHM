@@ -4,13 +4,13 @@ def solution(dirs):
     pi = pj = 5 # 캐릭터의 시작 위치
     visited = [] # 걸어본 길
     
-    # 방향이 움직이는 좌표
     direc = ['U', 'D', 'R', 'L']
     di = [-1, 1, 0, 0]
     dj = [0, 0, 1, -1]
     
     for d in dirs:
         index = direc.index(d)
+        
         # 캐릭터가 이동할 좌표
         mi = pi + di[index]
         mj = pj + dj[index]
