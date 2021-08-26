@@ -1,17 +1,15 @@
 def solution(arr1, arr2):
     answer = []
     
-    for i in range(len(arr1)):
+    for i in range(len(arr1)): # arr1의 행만큼 반복
         temp = []
-        
-        for j in range(len(arr2[0])): 
+        for j in range(len(arr2[0])): # arr2의 행만큼 반복
             su = 0
-            for k in range(len(arr2)): 
+            for k in range(len(arr2)): # arr2의 열만큼 반복
                 su += arr1[i][k] * arr2[k][j]
             temp.append(su)
-
         answer.append(temp)
-        
+
     return answer
 
 print(solution([[1, 4], [3, 2], [4, 1]],[[3, 3], [3, 3]]),[[15, 15], [15, 15], [15, 15]])
