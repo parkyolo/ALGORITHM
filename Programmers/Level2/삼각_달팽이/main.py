@@ -19,7 +19,6 @@ def solution(n):
         if tri[si][sj] != 0: break
         tri[si][sj] = num
         num += 1
-        
         # 달팽이가 방향을 바꿔야할 때
         if (0 > si + di[ds] or si + di[ds] >= n) or (0 > sj + dj[ds] or sj + dj[ds] >= n) or tri[si+di[ds]][sj+dj[ds]] != 0:
             ds += 1
