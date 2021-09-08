@@ -17,9 +17,11 @@ def solution(n, vertex):
     while queue:
         node, cnt = queue.popleft()
         visited.add(node)
+        # 거리가 더 먼 노드이면 max_cnt에 거리를 저장하고 answer를 1로 초기화
         if cnt > max_cnt:
             max_cnt = cnt
             answer = 1
+        # 현재 max 거리인 노드의 개수를 카운트
         elif cnt == max_cnt:
             answer += 1
         # 방문하지 않은 연결 노드에 대해 거리+1해서 queue에 저장
