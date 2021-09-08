@@ -1,77 +1,60 @@
-from collections import deque
+def turn(key,m): # key를 90도 회전
+    rotated = []
+    for i in range(m):
+        temp = []
+        for j in range(m-1,-1,-1):
+            temp.append(key[j][i])
+        rotated.append(temp)
+    return rotated
 
-def cantopen(key,lock,n):
-    # 자물쇠의 홈이 열쇠의 돌기보다 많으면 자물쇠를 열 수 없음
-    key_dolgi = 0
-    lock_hom = 0
-    for i in range(n):
-        for j in range(n):
-            if lock[i][j] == 0: lock_hom += 1
-            if key[i][j] == 0: key_dolgi += 1
-    if lock_hom > key_dolgi: return False
-    else: return True
+def makeboard(m,n,lock): # 가운데에 lock이 있는 (2(m-1)+n)x(2(m-1)+n) 모양 보드 생성
+    board = [[0 for _ in range(2*m+n-2)] for _ in range(2*m+n-2)]
+    li = lj = 0
+    for i in range(m-1, m+n-1):
+        for j in range(m-1, m+n-1):
+            board[i][j] = lock[li][lj]
+            lj += 1
+        li += 1
+        lj = 0
+    return board
+
+def try_open(i,j,m,n,key,lock): # 보드에 key 값을 더함
+    # 새로운 보드 생성
+    board = makeboard(m,n,lock)
+    # 보드에서 key의 범위만큼 더해줌
+    for s in range(i,i+m):
+        for e in range(j,j+m):
+            board[s][e] = board[s][e] + key[s-i][e-j]
+    return board
+
+def unlock(board, m, n):
+    check = True
+    # lock의 범위만큼 모든 값이 1인지 검사
+    # 모든 값이 1이면 자물쇠를 열 수 있음
+    for i in range(m-1, m+n-1):
+        if check == False: break
+        for j in range(m-1, m+n-1):
+            if board[i][j] == 2 or board[i][j] == 0:
+                check = False
+                break
+    return check
 
 def solution(key, lock):
     m = len(key)
     n = len(lock)
 
-    # 열쇠의 돌기와 홈을 전환시켜서 자물쇠와 같게 만듦
-    for i in range(m):
-        for j in range(m):
-            if key[i][j] == 1: key[i][j] = 0
-            else: key[i][j] = 1
+    # 처음부터 홈이 없으면 True 리턴
+    fullboard = [[1]*n for _ in range(n)]
+    if fullboard == lock: return True
+
+    for i in range(m+n-1):
+        for j in range(m+n-1):
+            for _ in range(4):
+                key = turn(key,m)  # key를 90도 회전
+                board = try_open(i,j,m,n,key,lock) # (2(m-1)+n)x(2(m-1)+n) 모양의 보드를 만들고 i,j에 key를 넣으면서 lock의 값과 더함
+                if unlock(board, m,n) == True: return True # lock 부분의 값이 모두 1이면 자물쇠를 열 수 있으므로 True 리턴
     
-    # 열쇠를 자물쇠와 같은 크기로 만들어줌
-    for i in range(n):
-        if i < m:
-            for j in range(m,n):
-                key[i].append(1)
-        else:
-            key.append([1 for _ in range(n)])
-
-    queue = deque([key])
-    while queue:
-        k = queue.popleft()
-        if lock == k: return True
-        if cantopen(k,lock,n) == False: continue
-        
-        # key 회전
-        rotated_key = k[:]
-        for _ in range(3):
-            temp_key = []
-            for i in range(n):
-                temp = []
-                for j in range(n-1,-1,-1):
-                    temp.append(rotated_key[j][i])
-                temp_key.append(temp)
-            rotated_key = temp_key[:]
-            queue.append(rotated_key)
-        # key 이동
-        move_to_under = [[1 for _ in range(n)]]
-        for i in range(n-1):
-            move_to_under.append(k[i])
-        move_to_up = []
-        for i in range(1, n):
-            move_to_up.append(k[i])
-        move_to_up.append([1 for _ in range(n)])
-        move_to_left = []
-        for i in range(n):
-            temp = [k[i][j] for j in range(1,n)]
-            temp.append(1)
-            move_to_left.append(temp)
-        move_to_right = []
-        for i in range(n):
-            temp = [1]
-            for j in range(n-1):
-                temp.append(k[i][j])
-            move_to_right.append(temp)
-
-        queue.append(move_to_under)
-        queue.append(move_to_up)
-        queue.append(move_to_left)
-        queue.append(move_to_right)
-
     return False
 
 print(solution([[0, 0, 0], [1, 0, 0], [0, 1, 1]],[[1, 1, 1], [1, 1, 0], [1, 0, 1]]),True)
-print(solution([[0,1],[1,0]], [[0,1,0],[1,0,0],[0,0,1]]))
+print(solution([[0,1],[1,0]], [[0,1,0],[1,0,0],[0,0,1]]), False)
