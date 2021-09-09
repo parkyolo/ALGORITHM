@@ -12,27 +12,29 @@ def turn(puzzle): # 퍼즐을 90도 회전
 def solution(game_board, table):
     answer = 0
     n = len(game_board)
-    v_g = [[0]*n for _ in range(n)]
-    v_t = [[0]*n for _ in range(n)]
-    # 하좌우 좌표
-    di = [1,0,0]
-    dj = [0,-1,1]
+    v_g = [[0]*n for _ in range(n)] # game_board의 방문 여부
+    v_t = [[0]*n for _ in range(n)] # table의 방문 여부
+    # 상하좌우 좌표
+    di = [-1,1,0,0]
+    dj = [0,0,-1,1]
     
-    x = y = 0
-    pieces = []
-    blanks = []
-    piece = []
+    pieces = [] # 조각의 위치
+    blanks = [] # 빈칸의 위치
+
     queue = deque()
-    # 퍼즐 조각 찾기
+    piece = []
+    x = y = 0
+    
     for i in range(n):
         for j in range(n):
+            # 퍼즐 조각 찾기
             if table[i][j] == 1 and v_t[i][j] == 0:
                 queue.append((i,j))
                 piece.append([x,y])
                 v_t[i][j] = 1
                 while queue:
                     now_i, now_j = queue.popleft()
-                    for k in range(3):
+                    for k in range(4):
                         if 0 <= now_i + di[k] < n and 0 <= now_j + dj[k] < n:
                             if table[now_i + di[k]][now_j + dj[k]] == 1 and v_t[now_i + di[k]][now_j + dj[k]] == 0:
                                 queue.append((now_i + di[k],now_j + dj[k]))
@@ -42,14 +44,14 @@ def solution(game_board, table):
                 piece = []
                 x = y = 0
 
-    # ------- 빈 칸 찾기 -------
+            # 빈 칸 찾기
             if game_board[i][j] == 0 and v_g[i][j] == 0:
                 queue.append((i,j))
                 piece.append([x,y])
                 v_g[i][j] = 1
                 while queue:
                     now_i, now_j = queue.popleft()
-                    for k in range(3):
+                    for k in range(4):
                         if 0 <= now_i + di[k] < n and 0 <= now_j + dj[k] < n:
                             if game_board[now_i + di[k]][now_j + dj[k]] == 0 and v_g[now_i + di[k]][now_j + dj[k]] == 0:
                                 queue.append((now_i + di[k],now_j + dj[k]))
@@ -59,8 +61,9 @@ def solution(game_board, table):
                 piece = []
                 x = y = 0
 
-    # ------- 빈칸에 맞는 조각 찾기
+    # 빈칸에 맞는 조각 찾기
     for b in blanks:
+        # 빈칸의 height, width 구하기
         max_w = max_h = -1
         min_w = b[0][1]
         min_h = b[0][0]
@@ -75,11 +78,13 @@ def solution(game_board, table):
         # 빈칸의 width*height 크기의 2차원 배열 생성
         for r in b:
             blank[r[0]][r[1]-min_w] = 1
-        check = True
+
+        check = False # 빈칸에 맞는 조각을 찾았는지 체크
         for p_i, p in enumerate(pieces):
-            if check == False: break
+            if check == True: break
             if p == [-1]: continue
-            length = len(p)
+            blocks = len(p) # 조각 안의 블록의 수
+            # 조각의 height, width 구하기
             max_w = max_h = -1
             min_w = p[0][1]
             min_h = p[0][0]
@@ -100,9 +105,9 @@ def solution(game_board, table):
                 for _ in range(4):
                     piece = turn(piece)
                     if piece == blank:
-                        answer += length
+                        answer += blocks
                         pieces[p_i] = [-1] # 사용한 조각은 없앰
-                        check = False
+                        check = True
                         break       
     return answer
 
