@@ -1,5 +1,3 @@
-from collections import deque
-
 n = int(input())
 YN = []
 for _ in range(n):
