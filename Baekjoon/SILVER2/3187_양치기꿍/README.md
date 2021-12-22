@@ -19,7 +19,7 @@ https://www.acmicpc.net/problem/3187
 
 ### 문제풀이
 - BFS로 풀이
-- farm[i][j]가 'v'나 'k'이면 [i,j]를 queue에 넣고 v배열에 방문 체크
-- farm[i][j]를 기준으로 상하좌우를 탐색하면서 'v', 'k', '.'일 때 queue에 넣고 'v'나 'k'이면 wolves나 sheep += 1
-- sheep이 wolves보다 많으면 survive_sheep += sheep
-- 아니라면 survive_wolves += wolves
+- ```farm[i][j]```가 ```'v'```나 ```'k'```이면 ```[i,j]```를 ```queue```에 넣고 ```v```배열에 방문 체크
+- ```farm[i][j]```를 기준으로 상하좌우를 탐색하면서 ```'v', 'k', '.'```일 때 ```queue```에 넣고 ```'v'```나 ```'k'```이면 ```wolves```나 ```sheep``` += 1
+- ```sheep```이 ```wolves```보다 많으면 ```survive_sheep += sheep```
+- 아니라면 ```survive_wolves += wolves```
