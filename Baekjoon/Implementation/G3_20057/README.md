@@ -16,4 +16,3 @@ https://www.acmicpc.net/problem/20057
 
 ### 출력
 격자의 밖으로 나간 모래의 양을 출력한다.
-

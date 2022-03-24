@@ -2,63 +2,62 @@
 #include <cmath>
 using namespace std;
 int A[500][500];
-int cnt = 0;
-int d[4][2] = {{0,-1},{1,0},{0,1},{-1,0}}; // 좌하우상
-int dm[4][9][2] = {
+int n, cnt = 0;
+int d[4][2] = {{0,-1},{1,0},{0,1},{-1,0}}; // 토네이도가 이동하는 순서별 좌표 변화량
+double pct[9] = {0.05, 0.1, 0.1, 0.07, 0.07, 0.02, 0.02, 0.01, 0.01};
+int ds[4][9][2] = { // pct[i]만큼의 모래가 이동하는 위치 변화량
     {{0,-2},{-1,-1},{1,-1},{-1,0},{1,0},{-2,0},{2,0},{-1,1},{1,1}},
     {{2,0},{1,-1},{1,1},{0,-1},{0,1},{0,-2},{0,2},{-1,-1},{-1,1}},
     {{0,2},{-1,1},{1,1},{-1,0},{1,0},{-2,0},{2,0},{-1,-1},{1,-1}},
     {{-2,0},{-1,-1},{-1,1},{0,-1},{0,1},{0,-2},{0,2},{1,-1},{1,1}}
     };
-int alpha[4][2] = {{0,-1},{1,0},{0,1},{-1,0}};
-double pct[9] = {0.05, 0.1, 0.1, 0.07, 0.07, 0.02, 0.02, 0.01, 0.01};
+int alpha[4][2] = {{0,-1},{1,0},{0,1},{-1,0}}; // α 위치
 
-void tornado(int cx, int cy, int direc, int move, int n, int move_cnt) {
-    // 모래의 이동
-    for (int i=0; i<move; i++) {
-        cx += d[direc][0];
-        cy += d[direc][1];
-        int total = 0;
-        for (int j=0; j<9; j++) {
-            if (cx+dm[direc][j][0] < 0 || cx+dm[direc][j][0] >= n || cy+dm[direc][j][1] < 0 || cy+dm[direc][j][1] >= n) {
-                cnt += floor(A[cx][cy]*pct[j]);
-            } else {
-                A[cx+dm[direc][j][0]][cy+dm[direc][j][1]] += floor(A[cx][cy]*pct[j]);
+void sand_scattering(int x, int y, int direc) { // 모래 흩날리기
+    int total = 0;
+    for (int j=0; j<9; j++) {
+        int nx = x+ds[direc][j][0];
+        int ny = y+ds[direc][j][1];
+        int sand = floor(A[x][y] * pct[j]);
+        if (nx < 0 || nx >= n || ny < 0 || ny >= n) cnt += sand;
+        else A[nx][ny] += sand;
+        total += sand;
+    }
+
+    int nx = x+alpha[direc][0];
+    int ny = y+alpha[direc][1];
+    if (nx < 0 || nx >= n || ny < 0 || ny >= n) cnt += (A[x][y]-total);
+    else A[nx][ny] += (A[x][y]-total);
+    A[x][y] = 0;
+}
+
+void tornado(int x, int y) { // 토네이도 이동
+    int direc = 0;
+    int move_cnt = 1;
+    while (x != 0 || y != 0) {
+        for (int i=0; i<2; i++) { // move_cnt만큼 2번씩 이동
+            for (int j=0; j<move_cnt; j++) { // 한 번 움직일 때마다 모래가 흩날림
+                x += d[direc][0];
+                y += d[direc][1];
+                sand_scattering(x, y, direc);
+                if (x == 0 && y == 0) { // (0,0)에 도착하면 종료
+                    return;
+                }
             }
-            total += floor(A[cx][cy]*pct[j]);
+            direc = (direc+1)%4; // 방향 바꾸기
         }
-        if (cx+alpha[direc][0] < 0 || cx+alpha[direc][0] >= n || cy+alpha[direc][1] || cy+alpha[direc][1] >= n) {
-            cnt += (A[cx][cy]-total);
-        } else {
-            A[cx+alpha[direc][0]][cy+alpha[direc][1]] += (A[cx][cy]-total);
-        }
+        move_cnt ++; // 이동 횟수 증가
     }
-    
-    if (cx == 0 && cy == 0) return;
-
-    // 방향 전환
-    direc = (direc+1)%4;
-    if (move == n-1 && direc == 0) {
-        tornado(cx, cy, direc, move, n, -1);
-        return;
-    }
-    if (move_cnt == 2) {
-        tornado(cx, cy, direc, move+1, n, 1);
-    } else {
-        tornado(cx, cy, direc, move, n, 2);
-    }
-    return;
 }
 
 int main() {
-    int n;
     cin >> n;
     for (int i=0; i<n; i++) {
         for (int j=0; j<n; j++) {
             cin >> A[i][j];
         }
     }
-    tornado(n/2, n/2, 0, 1, n, 1);
+    tornado(n/2, n/2);
     cout << cnt;
     return 0;
 }
