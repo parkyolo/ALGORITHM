@@ -1,6 +1,6 @@
 ## 징검다리
 ### 문제
-https://programmers.co.kr/learn/courses/30/lessons/43236
+https://programmers.co.kr/learn/courses/30/lessons/43236  
 출발지점부터 distance만큼 떨어진 곳에 도착지점이 있습니다. 그리고 그사이에는 바위들이 놓여있습니다. 바위 중 몇 개를 제거하려고 합니다.
 예를 들어, 도착지점이 25만큼 떨어져 있고, 바위가 [2, 14, 11, 21, 17] 지점에 놓여있을 때 바위 2개를 제거하면 출발지점, 도착지점, 바위 간의 거리가 아래와 같습니다.
 
