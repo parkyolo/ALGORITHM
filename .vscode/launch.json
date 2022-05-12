@@ -5,6 +5,20 @@
     "version": "0.2.0",
     "configurations": [
         {
+            "type": "java",
+            "name": "Launch Solution",
+            "request": "launch",
+            "mainClass": "Solution",
+            "projectName": "ALGORITHM_15da786a"
+        },
+        {
+            "type": "java",
+            "name": "Launch hw",
+            "request": "launch",
+            "mainClass": "hw",
+            "projectName": "ALGORITHM_15da786a"
+        },
+        {
             "name": "Python: Current File",
             "type": "python",
             "request": "launch",

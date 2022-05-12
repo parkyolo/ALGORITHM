@@ -3,5 +3,9 @@
         "cmath": "cpp",
         "iostream": "cpp",
         "ostream": "cpp"
+    },
+    "java.home" : "C:\\Program Files\\Java\\jdk-17",
+    "files.exclude": {
+        "**/.classpath":true,
     }
 }
