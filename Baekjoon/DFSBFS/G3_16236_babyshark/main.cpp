@@ -8,8 +8,8 @@ using namespace std;
 
 int N;
 int space[MAX][MAX];
-int dx[] = {-1, 0, 0, 1};
-int dy[] = {0, -1, 1, 0};
+int dx[] = {-1, 0, 0, 1}; // 상하좌우 x 변화량
+int dy[] = {0, -1, 1, 0}; // y 변화량
 int sec = 0; // 아기 상어가 엄마 상어에게 도움을 요청하지 않고 물고기를 잡아먹을 수 있는 시간
 
 
@@ -32,14 +32,14 @@ void move(int x, int y, int shark, int cnt) { // x좌표, y좌표, 아기 상어
         q.pop();
 
         for (int i=0; i<4; i++) {
-            int nx = cx+dx[i];
+            int nx = cx+dx[i]; // 아기 상어와 상하좌우로 인접한 칸
             int ny = cy+dy[i];
 
-            if (nx >= 0 && nx < N && ny >= 0 && ny < N && v[nx][ny] == 0) {
-                if (space[nx][ny] == shark || space[nx][ny] == 0) {
+            if (nx >= 0 && nx < N && ny >= 0 && ny < N && v[nx][ny] == 0) { // 범위 & 방문 체크
+                if (space[nx][ny] == shark || space[nx][ny] == 0) { // 지나갈 수 있는 칸
                     v[nx][ny] = v[cx][cy] + 1; // 거리 체크
                     q.push({nx, ny});
-                } else if (space[nx][ny] < shark) {
+                } else if (space[nx][ny] < shark) { // 물고기를 먹을 수 있는 경우
                     v[nx][ny] = v[cx][cy] + 1;
                     fish.push_back({nx, ny});
                     q.push({nx, ny});
@@ -50,13 +50,13 @@ void move(int x, int y, int shark, int cnt) { // x좌표, y좌표, 아기 상어
 
     int fx, fy;
     if (fish.size() == 0) return; // 더 이상 먹을 수 있는 물고기가 없을 때
-    else if (fish.size() == 1) { // 먹을 수 있는 물고기가 1마리일 때
+    else if (fish.size() == 1) { // 먹을 수 있는 물고기가 1마리라면, 그 물고기를 먹으러 감
         fx = fish[0].first;
         fy = fish[0].second;
         sec += v[fx][fy];
         move(fx, fy, shark, cnt+1);
     }
-    else { // 먹을 수 있는 물고기가 1마리보다 많을 때
+    else { // 먹을 수 있는 물고기가 1마리보다 많으면, 거리가 가장 가까운 물고기를 먹으러 감
         int min_dist = INT_MAX; // 가장 가까운 거리
         int min_cnt = 0;
         vector<pair<int, int>> minfish;
@@ -75,7 +75,7 @@ void move(int x, int y, int shark, int cnt) { // x좌표, y좌표, 아기 상어
             }
         }
 
-        if (min_cnt > 1) { // 거리가 가까운 물고기가 많을 때
+        if (min_cnt > 1) { // 거리가 가까운 물고기가 많으면,
             sort(minfish.begin(), minfish.end()); // 가장 위에, 가장 왼쪽에 있는 물고기를 찾음
             fx = minfish[0].first;
             fy = minfish[0].second;
@@ -93,7 +93,7 @@ int main() {
     for (int i=0; i<N; i++) {
         for (int j=0; j<N; j++) {
             cin >> space[i][j];
-            if (space[i][j] == 9) {
+            if (space[i][j] == 9) { // 아기 상어의 위치
                 x = i;
                 y = j;
             }
