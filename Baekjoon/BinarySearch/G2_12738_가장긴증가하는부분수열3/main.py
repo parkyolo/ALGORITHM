@@ -5,7 +5,7 @@ sub_seq = [seq[0]]
 def binarySearch(target, start, end):
     while start < end:
         mid = (start+end)//2
-        if target > sub_seq[mid]: start = mid
+        if target > sub_seq[mid]: start = mid+1
         else: end = mid
     return end
 
