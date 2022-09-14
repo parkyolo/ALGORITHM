@@ -19,11 +19,11 @@ function getLCM(num1, num2) {
  * 단위 분수를 구하는 함수
  * 1/1부터 1/(a/mul)까지의 단위분수를 분할에 추가하면서(남은 수에서 빼주면서)
  * 분자가 0이 되어 모두 단위분수로 분할되었다고 판단될 때 answer를 증가한다.
- * @param {} numer 분자
- * @param {*} denom 분모
- * @param {*} unit 단위분수의 분모
- * @param {*} mul 단위분수의 분모의 곱
- * @param {*} cnt 단위분수의 개수
+ * @param {number} numer 분자
+ * @param {number} denom 분모
+ * @param {number} unit 단위분수의 분모
+ * @param {number} mul 단위분수의 분모의 곱
+ * @param {number} cnt 단위분수의 개수
  */
 function getUnitFraction(numer, denom, unit, mul, cnt) {
     let lcm = getLCM(denom, unit);                  // 1. 남은 수의 분모와 단위분수의 분모의 최소공배수를 구한다.
