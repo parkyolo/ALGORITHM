@@ -18,15 +18,10 @@ def main():
             nx, ny = cx + dxy[i][0], cy + dxy[i][1]
             if nx < 0 or nx >= n or ny < 0 or ny >= m: continue
 
-            if board[nx][ny] == 0: # 벽이 아닐 때
-                if dist[nx][ny] <= dist[cx][cy]: continue
-                dist[nx][ny] = dist[cx][cy]
-                queue.append((nx, ny))
+            if dist[nx][ny] <= dist[cx][cy] + board[nx][ny]: continue
 
-            elif board[nx][ny] == 1: # 벽일 때
-                if dist[nx][ny] <= dist[cx][cy] + 1: continue
-                dist[nx][ny] = dist[cx][cy] + 1
-                queue.append((nx, ny))
+            dist[nx][ny] = dist[cx][cy] + board[nx][ny]
+            queue.append((nx, ny))
 
     print(dist[n-1][m-1])
 
