@@ -36,41 +36,36 @@ class Deque {
         this.length--;
         return item;
     }
-    
 }
 
 const filePath = process.platform === "linux" ? "/dev/stdin" : "./input.txt";
 const [n, k] = require("fs").readFileSync(filePath).toString().trim().split(" ").map(Number);
 
+let ans = Number.MAX_VALUE;
+
 let queue = new Deque();
 queue.push(n, 0);
 
-let ans = Number.MAX_VALUE;
 let visited = Array(10001).fill(false);
 visited[n] = true;
 
-while (!queue.isEmpty()) {
+while (!queue.isEmpty()) {	// BFS 탐색
     let node = queue.popleft();
-    if (node.sec >= ans) continue;
-    if (node.x === k) {
-        ans = Math.min(ans, node.sec);
+  	let [x, s] = [node.x, node.sec];
+  
+    if (s >= ans) continue;	// 경과 시간이 ans보다 커지면 넘어감
+    if (x >= k) {
+        // x가 k보다 크거나 같아지면 ans 갱신
+      	// x가 k보다 커지면 x-1로 이동하는 경우만 남기 때문에 더이상 덱에 넣지 않는다.
+        ans = Math.min(ans, s+x-k);
         continue;
     }
-    if (node.x > k) {
-        ans = Math.min(ans, node.sec+node.x-k);
-        continue;
-    }
-    if (node.x*2 <= 100000 && !visited[node.x*2]) {
-        visited[node.x*2] = true;
-        queue.push(node.x*2, node.sec);
-    } if (node.sec+1 < ans) {
-        if (node.x-1 >= 0 && !visited[node.x-1]) {
-            visited[node.x-1] = true;
-            queue.push(node.x-1, node.sec+1);
-        } if (node.x+1 <= 100000 && !visited[node.x+1]) {
-            visited[node.x+1] = true;
-            queue.push(node.x+1, node.sec+1);
-        }
+  
+  	for (let [nx, ns] of [[x*2, s], [x-1, s+1], [x+1, s+1]]) {	// 세 방향 탐색
+      if (0 <= nx <= 100000 && !visited[nx]) {	// 범위 안에 있고 아직 방문하지 않은 위치여야 함
+        visited[nx] = true;
+        queue.push(nx, ns);
+      }
     }
 }
 
