@@ -19,3 +19,6 @@ https://www.acmicpc.net/problem/13549
 ```
 2
 ```
+
+### 풀이
+https://velog.io/@jypapapaa/백준-13549-숨바꼭질-3-BFS-자바스크립트
