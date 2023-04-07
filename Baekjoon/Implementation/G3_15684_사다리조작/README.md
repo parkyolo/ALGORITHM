@@ -34,4 +34,5 @@ https://www.acmicpc.net/problem/15684
 i번 세로선의 결과가 i번이 나오도록 사다리 게임을 조작하려면, 추가해야 하는 가로선 개수의 최솟값을 출력한다. 만약, 정답이 3보다 큰 값이면 -1을 출력한다. 또, 불가능한 경우에도 -1을 출력한다.
 
 ### 풀이
-- DFS, Backtracking 풀이 https://github.com/parkyolo/Algorithm/blob/master/Baekjoon/Implementation/G3_15684_사다리조작/dfs_sol.js
+- DFS, Backtracking 풀이
+- 49번 line의 이미 방문한 y축(양 옆에 가로선이 없어서 가로선을 놓을 수 있는 칸)을 지나가면 시간이 확 단축된다.
