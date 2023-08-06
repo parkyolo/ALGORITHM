@@ -1,8 +1,8 @@
 '''
 [S/W 문제해결 기본] 1일차 - Flatten
-https://swexpertacademy.com/main/code/problem/problemDetail.do?problemLevel=3&contestProbId=AV139KOaABgCFAYh&categoryId=AV139KOaABgCFAYh&categoryType=CODE&problemTitle=&orderBy=INQUERY_COUNT&selectCodeLang=ALL&select-1=3&pageSize=10&pageIndex=1
+(https://swexpertacademy.com/main/code/problem/problemDetail.do?problemLevel=3&contestProbId=AV139KOaABgCFAYh&categoryId=AV139KOaABgCFAYh&categoryType=CODE&problemTitle=&orderBy=INQUERY_COUNT&selectCodeLang=ALL&select-1=3&pageSize=10&pageIndex=1)
 
-낮은 높이부터 + 1한 값과 높은 높이부터 - 1한 값이 같아지면 작업이 끝나므로
+낮은 높이부터 +1한 값과 높은 높이부터 - 1한 값이 같아지면 작업이 끝나므로
 minheap과 maxheap의 root 원소의 차이가 1보다 작아지면 종료한다.
 '''
 

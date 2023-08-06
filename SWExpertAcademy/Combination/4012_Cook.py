@@ -1,3 +1,10 @@
+'''
+4012. [모의 SW 역량테스트] 요리사
+(https://swexpertacademy.com/main/code/problem/problemDetail.do?contestProbId=AWIeUtVakTMDFAVH&categoryId=AWIeUtVakTMDFAVH&categoryType=CODE&problemTitle=4012&orderBy=FIRST_REG_DATETIME&selectCodeLang=ALL&select-1=&pageSize=10&pageIndex=1)
+
+재귀로 조합 구현
+'''
+
 T = int(input())
 
 for test_case in range(1, T + 1):

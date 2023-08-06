@@ -1,3 +1,12 @@
+'''
+4008. [모의 SW 역량테스트] 숫자 만들기
+(https://swexpertacademy.com/main/code/problem/problemDetail.do?contestProbId=AWIeRZV6kBUDFAVH&categoryId=AWIeRZV6kBUDFAVH&categoryType=CODE&problemTitle=4008&orderBy=FIRST_REG_DATETIME&selectCodeLang=ALL&select-1=&pageSize=10&pageIndex=1)
+
+- 재귀로 순열 함수 구현
+- 연산자의 횟수를 빼고 dfs를 호출한 후 dfs가 끝나면 횟수를 다시 더해줌
+
+'''
+
 def cal(a, b, oper): # 연산
     if oper == 0:
         return a+b

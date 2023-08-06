@@ -10,7 +10,6 @@
  */
 
 import java.util.Scanner;
-import java.io.FileInputStream;
 import java.util.Map;
 import java.util.HashMap;
 
@@ -31,8 +30,6 @@ class Solution
 
 	public static void main(String args[]) throws Exception
 	{
-		System.setIn(new FileInputStream(".\\input.txt"));
-
 		Scanner sc = new Scanner(System.in);
 		int T;
 		T=sc.nextInt();
@@ -45,7 +42,7 @@ class Solution
             int sum = 0;    // sum of codes
             int number = 0; // sum of odd * 3 and even
 
-            for (int j = 0; j<n; j++) { // row index
+            for (int j = 0; j < n; j++) { // row index
                 String line = sc.next();
                 if (sum > 0) continue;  // if already found the code, continue
                 if (!line.contains("1")) continue;                               // 1. find the row that contains the codes (if the line doesn't contain a code, continue)

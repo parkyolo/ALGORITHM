@@ -1,3 +1,12 @@
+'''
+5644. [모의 SW 역량테스트] 무선 충전
+(https://swexpertacademy.com/main/code/problem/problemDetail.do?contestProbId=AWXRDL1aeugDFAUo&categoryId=AWXRDL1aeugDFAUo&categoryType=CODE&problemTitle=5644&orderBy=FIRST_REG_DATETIME&selectCodeLang=ALL&select-1=&pageSize=10&pageIndex=1)
+
+- BC의 충전 범위에 BC의 index를 넣어줌
+- A와 B의 궤적에 충전가능한 BC가 있을 경우 충전량 ap와 BC의 index인 ai를 구함
+- ai == bi일 경우, 두 번째로 큰 충전량인 sa를 구함
+'''
+
 from collections import deque
 T = int(input())
 

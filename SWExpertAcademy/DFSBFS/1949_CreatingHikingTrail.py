@@ -1,3 +1,10 @@
+'''
+1949. [모의 SW 역량테스트] 등산로 조성
+(https://swexpertacademy.com/main/code/problem/problemDetail.do?contestProbId=AV5PoOKKAPIDFAUq&categoryId=AV5PoOKKAPIDFAUq&categoryType=CODE&problemTitle=1949&orderBy=FIRST_REG_DATETIME&selectCodeLang=ALL&select-1=&pageSize=10&pageIndex=1)
+
+시작 점을 찾고, DFS로 가장 긴 거리를 찾음
+'''
+
 T = int(input())
 n, k = 0, 0
 map_ = []
